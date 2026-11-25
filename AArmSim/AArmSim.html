@@ -127,17 +127,17 @@
         font-variant-numeric: tabular-nums;
       }
       .angles {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px 14px;
+        display: grid;
+        gap: 4px;
         margin-top: 4px;
       }
       .angles span {
+        display: flex;
+        justify-content: space-between;
+        gap: 6px;
         white-space: nowrap;
       }
       .angles output {
-        display: inline-block;
-        inline-size: 7ch;
         text-align: end;
       }
       input[type="range"] {
@@ -203,7 +203,7 @@
         この設定ではトーロッドが取付点に届きません
       </p>
       <div class="body-width" id="bodyWidthDisplay" hidden>
-        <div>車体幅（ハブ中心間） <output id="bodyWidth">--</output></div>
+        <div>ナックル間 <output id="bodyWidth">--</output></div>
         <div>ロールセンター高 <output id="rollCenterHeight">--</output></div>
       </div>
       <label class="roll-center-toggle">
@@ -226,8 +226,7 @@
     </main>
     <footer>
       <div>
-        <label for="left"
-          >左ストローク <output id="leftValue">0.0 mm</output></label
+        <label for="left">左 <output id="leftValue">0.0 mm</output></label
         ><input
           id="left"
           type="range"
@@ -257,6 +256,16 @@
               >--</output
             ></span
           >
+          <span
+            >キャスター
+            <output
+              id="leftCaster"
+              for="left"
+              aria-label="左キャスター（正は上側が後方）"
+              aria-live="off"
+              >--</output
+            ></span
+          >
         </div>
       </div>
       <label class="stroke-sync">
@@ -264,8 +273,7 @@
         協調
       </label>
       <div>
-        <label for="right"
-          >右ストローク <output id="rightValue">0.0 mm</output></label
+        <label for="right">右 <output id="rightValue">0.0 mm</output></label
         ><input
           id="right"
           type="range"
@@ -295,6 +303,16 @@
               >--</output
             ></span
           >
+          <span
+            >キャスター
+            <output
+              id="rightCaster"
+              for="right"
+              aria-label="右キャスター（正は上側が後方）"
+              aria-live="off"
+              >--</output
+            ></span
+          >
         </div>
       </div>
       <div class="buttons" role="group" aria-label="視点と動作">
@@ -317,7 +335,7 @@
         <div class="adjustment-control">
           <div>
             <label for="leftToeHeight">
-              左トーロッド起点
+              左起点
               <output id="leftToeHeightValue" for="leftToeHeight">0 mm</output>
             </label>
             <input
@@ -332,7 +350,7 @@
           </div>
           <div>
             <label for="rightToeHeight">
-              右トーロッド起点
+              右起点
               <output id="rightToeHeightValue" for="rightToeHeight"
                 >0 mm</output
               >
@@ -351,7 +369,7 @@
         <div class="adjustment-control">
           <div>
             <label for="leftToeEndHeight">
-              左トーロッド終点
+              左終点
               <output id="leftToeEndHeightValue" for="leftToeEndHeight"
                 >0.0 mm</output
               >
@@ -367,7 +385,7 @@
           </div>
           <div>
             <label for="rightToeEndHeight">
-              右トーロッド終点
+              右終点
               <output id="rightToeEndHeightValue" for="rightToeEndHeight"
                 >0.0 mm</output
               >
@@ -385,7 +403,7 @@
         <div class="adjustment-control">
           <div>
             <label for="leftToeRodLength">
-              左トーロッド長
+              左長
               <output id="leftToeRodLengthValue" for="leftToeRodLength"
                 >38.000 mm</output
               >
@@ -401,7 +419,7 @@
           </div>
           <div>
             <label for="rightToeRodLength">
-              右トーロッド長
+              右長
               <output id="rightToeRodLengthValue" for="rightToeRodLength"
                 >38.000 mm</output
               >
@@ -422,7 +440,7 @@
         <div class="adjustment-control">
           <div>
             <label for="frontLowerWidth">
-              サスマウント前幅
+              前幅
               <output id="frontLowerWidthValue" for="frontLowerWidth"
                 >44.8 mm</output
               >
@@ -438,7 +456,7 @@
           </div>
           <div>
             <label for="rearLowerWidth">
-              サスマウント後幅
+              後幅
               <output id="rearLowerWidthValue" for="rearLowerWidth"
                 >43.6 mm</output
               >
@@ -456,7 +474,7 @@
         <div class="adjustment-control">
           <div>
             <label for="leftFrontLowerHeight">
-              左サスマウント前高さ
+              左前高さ
               <output id="leftFrontLowerHeightValue" for="leftFrontLowerHeight"
                 >0.0 mm</output
               >
@@ -472,7 +490,7 @@
           </div>
           <div>
             <label for="rightFrontLowerHeight">
-              右サスマウント前高さ
+              右前高さ
               <output
                 id="rightFrontLowerHeightValue"
                 for="rightFrontLowerHeight"
@@ -492,7 +510,7 @@
         <div class="adjustment-control">
           <div>
             <label for="leftRearLowerHeight">
-              左サスマウント後高さ
+              左後高さ
               <output id="leftRearLowerHeightValue" for="leftRearLowerHeight"
                 >0.0 mm</output
               >
@@ -508,7 +526,7 @@
           </div>
           <div>
             <label for="rightRearLowerHeight">
-              右サスマウント後高さ
+              右後高さ
               <output id="rightRearLowerHeightValue" for="rightRearLowerHeight"
                 >0.0 mm</output
               >
@@ -529,7 +547,7 @@
         <div class="adjustment-control">
           <div>
             <label for="leftLowerArmLength">
-              左ロアアーム長
+              左ロア長
               <output id="leftLowerArmLengthValue" for="leftLowerArmLength"
                 >45.0 mm</output
               >
@@ -545,7 +563,7 @@
           </div>
           <div>
             <label for="rightLowerArmLength">
-              右ロアアーム長
+              右ロア長
               <output id="rightLowerArmLengthValue" for="rightLowerArmLength"
                 >45.0 mm</output
               >
@@ -563,7 +581,7 @@
         <div class="adjustment-control">
           <div>
             <label for="leftUpperArmLength">
-              左アッパーアーム長
+              左アッパー長
               <output id="leftUpperArmLengthValue" for="leftUpperArmLength"
                 >43.0 mm</output
               >
@@ -579,7 +597,7 @@
           </div>
           <div>
             <label for="rightUpperArmLength">
-              右アッパーアーム長
+              右アッパー長
               <output id="rightUpperArmLengthValue" for="rightUpperArmLength"
                 >43.0 mm</output
               >
@@ -597,7 +615,7 @@
         <div class="adjustment-control">
           <div>
             <label for="leftLowerArmDepth">
-              左ロアアーム前後位置
+              左ロア前後位置
               <output id="leftLowerArmDepthValue" for="leftLowerArmDepth"
                 >0.0 mm</output
               >
@@ -613,7 +631,7 @@
           </div>
           <div>
             <label for="rightLowerArmDepth">
-              右ロアアーム前後位置
+              右ロア前後位置
               <output id="rightLowerArmDepthValue" for="rightLowerArmDepth"
                 >0.0 mm</output
               >
@@ -634,7 +652,7 @@
         <div class="adjustment-control">
           <div>
             <label for="leftKnuckleLowerHeight">
-              左ナックル ロア高さ
+              左ロア高さ
               <output
                 id="leftKnuckleLowerHeightValue"
                 for="leftKnuckleLowerHeight"
@@ -652,7 +670,7 @@
           </div>
           <div>
             <label for="rightKnuckleLowerHeight">
-              右ナックル ロア高さ
+              右ロア高さ
               <output
                 id="rightKnuckleLowerHeightValue"
                 for="rightKnuckleLowerHeight"
@@ -672,7 +690,7 @@
         <div class="adjustment-control">
           <div>
             <label for="leftKnuckleUpperHeight">
-              左ナックル アッパー高さ
+              左アッパー高さ
               <output
                 id="leftKnuckleUpperHeightValue"
                 for="leftKnuckleUpperHeight"
@@ -690,7 +708,7 @@
           </div>
           <div>
             <label for="rightKnuckleUpperHeight">
-              右ナックル アッパー高さ
+              右アッパー高さ
               <output
                 id="rightKnuckleUpperHeightValue"
                 for="rightKnuckleUpperHeight"
@@ -708,14 +726,10 @@
           </div>
         </div>
       </details>
-      <button id="resetPage" type="button">リセット</button>
+      <button id="resetSliders" type="button">リセット</button>
     </section>
     <script src="./three.min.js"></script>
     <script>
-      document.getElementById("resetPage").addEventListener("click", () => {
-        window.location.reload();
-      });
-
       const canvas = document.getElementById("scene");
       const status = document.getElementById("status");
       const drawingArea = document.getElementById("drawingArea");
@@ -967,6 +981,7 @@
           const readout = document.getElementById(id + "Value");
           const camberReadout = document.getElementById(id + "Camber");
           const toeReadout = document.getElementById(id + "Toe");
+          const casterReadout = document.getElementById(id + "Caster");
           const lower = Array.from({ length: 3 }, () =>
             mesh(lineGeometry, "lower"),
           );
@@ -1015,6 +1030,7 @@
             readout,
             camberReadout,
             toeReadout,
+            casterReadout,
             lower,
             upper,
             toe,
@@ -1282,6 +1298,9 @@
           side.readout.value = `${travel.toFixed(1)} mm`;
           side.camberReadout.value = reachable ? formatAngle(camber) : "--";
           side.toeReadout.value = reachable ? formatAngle(-toeAngle) : "--";
+          side.casterReadout.value = formatAngle(
+            Math.atan2(uprightAxis.z, uprightAxis.y),
+          );
           return { low, high, hub, axle, reachable, strokeLimited };
         }
 
@@ -1693,6 +1712,17 @@
         animation.addEventListener("click", () =>
           setAnimating(animationStart === null),
         );
+        document
+          .getElementById("resetSliders")
+          .addEventListener("click", () => {
+            setAnimating(false);
+            document
+              .querySelectorAll('input[type="range"]')
+              .forEach((input) => {
+                input.value = input.defaultValue;
+              });
+            render();
+          });
         emphasis.addEventListener("change", render);
         showRollCenter.addEventListener("change", render);
         strokeSync.addEventListener("change", () => {
