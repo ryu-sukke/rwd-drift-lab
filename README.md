@@ -1,0 +1,13 @@
+# RWD Drift Lab
+
+RC二駆ドリフト向けのツール置き場です。
+
+## AArmSim
+
+リアAアーム式サスペンションの動きを3Dで確認するシミュレーターです。ストロークに応じたキャンバーとトーを表示し、設定に応じてロールセンターも確認できます。寸法やタイヤ接地は簡略モデルです。
+
+- [ブラウザーで開く](https://ryu-sukke.github.io/rwd-drift-lab/AArmSim/AArmSim.html)
+- ローカルでは、`AArmSim` フォルダをまとめて取得し、[AArmSim.html](AArmSim/AArmSim.html) を開きます。Three.jsは同梱されているため、外部CDNは不要です。
+- スマホでは公開ページを開き、ブラウザーのメニューからホーム画面に追加できます。公開ページのオフライン起動には対応していません。
+
+同梱ライブラリ: [Three.jsのライセンス](AArmSim/THREE-LICENSE.txt)
