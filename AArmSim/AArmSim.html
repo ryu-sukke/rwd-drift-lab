@@ -877,8 +877,11 @@
         fixedLine(vector(0, -21, -37), vector(0, -21, -73));
         fixedLine(vector(0, -21, -73), vector(5, -21, -65));
         fixedLine(vector(0, -21, -73), vector(-5, -21, -65));
-        const tireDiameter = 60;
+        const tireRadius = 30;
         const tireWidth = 26;
+        const tireHalfWidth = tireWidth / 2;
+        const tireEdgeRadius =
+          tireRadius - tireHalfWidth * Math.tan(MathUtils.degToRad(2));
         const toePivotBaseHeight = 10;
         const grid = new THREE.GridHelper(280, 14, 0xd5dfd9, 0xd5dfd9);
         scene.add(grid);
@@ -1301,7 +1304,15 @@
           side.casterReadout.value = formatAngle(
             Math.atan2(uprightAxis.z, uprightAxis.y),
           );
-          return { low, high, hub, axle, reachable, strokeLimited };
+          return {
+            low,
+            high,
+            hub,
+            axle,
+            displayAxle,
+            reachable,
+            strokeLimited,
+          };
         }
 
         function projectedArmDirection(outer, front, back) {
@@ -1370,22 +1381,49 @@
           }));
           const center = point(centerMaterial, 3.2);
           center.renderOrder = 1;
-          const tireRadius = tireDiameter / 2;
-          const tireGeometry = new THREE.CylinderGeometry(
-            tireRadius,
-            tireRadius,
-            tireWidth,
+          const tireGeometry = new THREE.LatheGeometry(
+            [
+              new THREE.Vector2(0, -tireHalfWidth),
+              new THREE.Vector2(tireEdgeRadius, -tireHalfWidth),
+              new THREE.Vector2(tireRadius, 0),
+              new THREE.Vector2(tireEdgeRadius, tireHalfWidth),
+              new THREE.Vector2(0, tireHalfWidth),
+            ],
             48,
           );
           const tireMaterial = new THREE.MeshLambertMaterial({
             color: 0x46545b,
             transparent: true,
-            opacity: 0.24,
             depthWrite: false,
           });
+          const tireOutlineMaterial = new THREE.LineBasicMaterial({
+            color: 0x46545b,
+            transparent: true,
+            opacity: 0.05,
+            depthWrite: false,
+          });
+          const tireSegments = tireGeometry.parameters.segments;
+          const tireOutlineGeometry = new THREE.BufferGeometry().setFromPoints(
+            Array.from({ length: tireSegments }, (_, index) => {
+              const angle = (index / tireSegments) * 2 * Math.PI;
+              return vector(
+                tireEdgeRadius * Math.sin(angle),
+                0,
+                tireEdgeRadius * Math.cos(angle),
+              );
+            }),
+          );
           const tires = corners.map(() => {
             const tire = new THREE.Mesh(tireGeometry, tireMaterial);
-            group.add(tire);
+            for (const edge of [-tireHalfWidth, tireHalfWidth]) {
+              const outline = new THREE.LineLoop(
+                tireOutlineGeometry,
+                tireOutlineMaterial,
+              );
+              outline.position.y = edge;
+              tire.add(outline);
+            }
+            scene.add(tire);
             return tire;
           });
           const readout = document.getElementById("rollCenterHeight");
@@ -1402,11 +1440,14 @@
           return function drawRollCenter(poses, roadDirection, visible) {
             group.visible = showRollCenter.checked && visible;
             readout.parentElement.hidden = !showRollCenter.checked;
-            if (!showRollCenter.checked) return 0;
-            poses.forEach(({ tireCenter, axle }, index) => {
-              tires[index].position.copy(tireCenter);
-              tires[index].quaternion.setFromUnitVectors(up, axle);
+            tireMaterial.opacity = showRollCenter.checked ? 0.22 : 0.19;
+            poses.forEach(({ hub, displayAxle }, index) => {
+              tires[index].position
+                .copy(hub)
+                .addScaledVector(displayAxle, tireWidth / 2);
+              tires[index].quaternion.setFromUnitVectors(up, displayAxle);
             });
+            if (!showRollCenter.checked) return 0;
             let extent = 0;
             const swingLines = poses.map(
               ({ low, high, contact, pivots, upperPivot }, index) => {
@@ -1514,16 +1555,22 @@
         let animationStart = null;
         let lastStrokeIndex = 0;
 
+        function tireSupport(axial) {
+          const radial = Math.sqrt(Math.max(0, 1 - axial * axial));
+          const centerReach = tireRadius * radial;
+          const edgeReach =
+            tireHalfWidth * Math.abs(axial) + tireEdgeRadius * radial;
+          return edgeReach > centerReach
+            ? {
+                offset: -Math.sign(axial) * tireHalfWidth,
+                radius: tireEdgeRadius,
+                reach: edgeReach,
+              }
+            : { offset: 0, radius: tireRadius, reach: centerReach };
+        }
+
         function tireRoadNormal([left, right]) {
           const centerDelta = right.tireCenter.clone().sub(left.tireCenter);
-          const tireReach = (axle, normal) => {
-            const axial = Math.min(1, Math.abs(axle.dot(normal)));
-            return (
-              (tireWidth * axial +
-                tireDiameter * Math.sqrt(1 - axial * axial)) /
-              2
-            );
-          };
           const normal = new THREE.Vector3();
           let lowAngle = -Math.PI / 2;
           let highAngle = Math.PI / 2;
@@ -1532,8 +1579,8 @@
             normal.set(-Math.sin(angle), Math.cos(angle), 0);
             const gap =
               centerDelta.dot(normal) +
-              tireReach(left.axle, normal) -
-              tireReach(right.axle, normal);
+              tireSupport(left.axle.dot(normal)).reach -
+              tireSupport(right.axle.dot(normal)).reach;
             if (Math.abs(gap) < 1e-8) break;
             if (gap > 0) lowAngle = angle;
             else highAngle = angle;
@@ -1543,16 +1590,15 @@
 
         function tireContact({ tireCenter, axle }, normal) {
           const axial = axle.dot(normal);
+          const { offset, radius } = tireSupport(axial);
           const radial = normal
             .clone()
             .addScaledVector(axle, -axial)
             .normalize();
-          const edge =
-            Math.abs(axial) < 1e-9 ? 0 : (-Math.sign(axial) * tireWidth) / 2;
           const point = tireCenter
             .clone()
-            .addScaledVector(axle, edge)
-            .addScaledVector(radial, -tireDiameter / 2);
+            .addScaledVector(axle, offset)
+            .addScaledVector(radial, -radius);
           return new THREE.Vector2(point.x, point.y);
         }
 
