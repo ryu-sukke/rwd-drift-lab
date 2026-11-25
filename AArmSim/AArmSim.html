@@ -880,6 +880,7 @@
         const tireRadius = 30;
         const tireWidth = 26;
         const tireHalfWidth = tireWidth / 2;
+        const tireCenterOffset = tireHalfWidth + 3;
         const tireEdgeRadius =
           tireRadius - tireHalfWidth * Math.tan(MathUtils.degToRad(2));
         const toePivotBaseHeight = 10;
@@ -1444,7 +1445,7 @@
             poses.forEach(({ hub, displayAxle }, index) => {
               tires[index].position
                 .copy(hub)
-                .addScaledVector(displayAxle, tireWidth / 2);
+                .addScaledVector(displayAxle, tireCenterOffset);
               tires[index].quaternion.setFromUnitVectors(up, displayAxle);
             });
             if (!showRollCenter.checked) return 0;
@@ -1683,7 +1684,7 @@
             );
             const tireCenter = pose.hub
               .clone()
-              .addScaledVector(pose.axle, tireWidth / 2);
+              .addScaledVector(pose.axle, tireCenterOffset);
             return {
               ...pose,
               tireCenter,
