@@ -708,9 +708,14 @@
           </div>
         </div>
       </details>
+      <button id="resetPage" type="button">リセット</button>
     </section>
     <script src="./three.min.js"></script>
     <script>
+      document.getElementById("resetPage").addEventListener("click", () => {
+        window.location.reload();
+      });
+
       const canvas = document.getElementById("scene");
       const status = document.getElementById("status");
       const drawingArea = document.getElementById("drawingArea");
