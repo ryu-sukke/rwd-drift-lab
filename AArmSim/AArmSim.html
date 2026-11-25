@@ -1486,7 +1486,7 @@
         const bodyWidthDisplay = document.getElementById("bodyWidthDisplay");
         let [yaw, elevation] = views.oblique;
         let zoom = 1;
-        let activePointer = null;
+        const activePointers = new Map();
         let animationStart = null;
         let lastStrokeIndex = 0;
 
@@ -1731,41 +1731,68 @@
             render();
           }),
         );
+        function scaleZoom(factor) {
+          zoom = MathUtils.clamp(zoom * factor, 0.65, 2.2);
+          render();
+        }
+
+        function pointerDistance(first, second) {
+          return Math.hypot(
+            first.clientX - second.clientX,
+            first.clientY - second.clientY,
+          );
+        }
+
         canvas.addEventListener("pointerdown", (event) => {
-          if (activePointer !== null || event.button !== 0) return;
-          activePointer = event.pointerId;
-          canvas.setPointerCapture(activePointer);
-        });
-        canvas.addEventListener("pointermove", (event) => {
+          const first = activePointers.values().next().value;
           if (
-            activePointer !== event.pointerId ||
-            (!event.movementX && !event.movementY)
+            event.button !== 0 ||
+            activePointers.size >= 2 ||
+            (first &&
+              (first.pointerType !== "touch" || event.pointerType !== "touch"))
           )
             return;
-          yaw -= event.movementX * 0.008;
-          elevation = MathUtils.clamp(
-            elevation + event.movementY * 0.008,
-            -1.35,
-            1.55,
-          );
+          activePointers.set(event.pointerId, event);
+          canvas.setPointerCapture(event.pointerId);
+        });
+        canvas.addEventListener("pointermove", (event) => {
+          const previous = activePointers.get(event.pointerId);
+          if (!previous) return;
+          activePointers.set(event.pointerId, event);
+          if (activePointers.size === 2) {
+            const other = [...activePointers.values()].find(
+              (pointer) => pointer.pointerId !== event.pointerId,
+            );
+            const before = pointerDistance(previous, other);
+            const after = pointerDistance(event, other);
+            if (before > 0 && after > 0 && before !== after)
+              scaleZoom(after / before);
+            return;
+          }
+          const deltaX = event.clientX - previous.clientX;
+          const deltaY = event.clientY - previous.clientY;
+          if (!deltaX && !deltaY) return;
+          yaw -= deltaX * 0.008;
+          elevation = MathUtils.clamp(elevation + deltaY * 0.008, -1.35, 1.55);
           viewButtons.forEach((view) =>
             view.setAttribute("aria-pressed", "false"),
           );
           render();
         });
-        canvas.addEventListener("lostpointercapture", () => {
-          activePointer = null;
-        });
+        for (const type of [
+          "pointerup",
+          "pointercancel",
+          "lostpointercapture",
+        ]) {
+          canvas.addEventListener(type, (event) => {
+            activePointers.delete(event.pointerId);
+          });
+        }
         canvas.addEventListener(
           "wheel",
           (event) => {
             event.preventDefault();
-            zoom = MathUtils.clamp(
-              zoom * Math.exp(-event.deltaY * 0.001),
-              0.65,
-              2.2,
-            );
-            render();
+            scaleZoom(Math.exp(-event.deltaY * 0.001));
           },
           { passive: false },
         );
