@@ -16,6 +16,7 @@ RC二駆ドリフト向けのツール置き場です。
 ## AckermanSim
 
 フロントのスライドラック式ステアリングとサスペンションの動きを3Dで確認するシミュレーターです。操舵量や車高を変えながら、左右のキャンバー・アングル・キャスターを確認できます。タイロッドやサスマウントの寸法調整、自動操舵・自動バンプ、簡易アッカーマン表示に対応しています。ジオメトリは簡略モデルです。
+（基準ジオメトリ―はわたし個人向けとなっています）
 
 - [ブラウザーで開く](https://ryu-sukke.github.io/rwd-drift-lab/AckermanSim/AckermanSim.html)
 - ローカルでは、`AckermanSim` フォルダをまとめて取得し、[AckermanSim.html](AckermanSim/AckermanSim.html) を開きます。Three.jsは同梱されているため、外部CDNは不要です。
