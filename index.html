@@ -10,12 +10,19 @@
         margin: 0;
         background: #f8faf7;
         color: #16282b;
-        font: 16px/1.6 "Yu Gothic UI", sans-serif;
+        font:
+          16px/1.6 "Yu Gothic UI",
+          sans-serif;
       }
       main {
         max-width: 42rem;
         margin-inline: auto;
         padding: 2rem 1.25rem;
+      }
+      nav {
+        display: grid;
+        justify-items: start;
+        gap: 0.75rem;
       }
       a {
         display: inline-flex;
@@ -31,10 +38,16 @@
   <body>
     <main>
       <h1>RWD Drift Lab</h1>
-      <a href="./AArmSim/AArmSim.html">
-        <img src="./AArmSim/icon-192.png" width="48" height="48" alt="" />
-        AArmSim: リアAアームシミュレーター
-      </a>
+      <nav aria-label="シミュレーター">
+        <a href="./AArmSim/AArmSim.html">
+          <img src="./AArmSim/icon-192.png" width="48" height="48" alt="" />
+          AArmSim: リアAアームシミュレーター
+        </a>
+        <a href="./AckermanSim/AckermanSim.html">
+          <img src="./AckermanSim/icon-192.png" width="48" height="48" alt="" />
+          AckermanSim: フロントスライドラックシミュレーター
+        </a>
+      </nav>
     </main>
   </body>
 </html>
