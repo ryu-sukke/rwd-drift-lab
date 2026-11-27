@@ -21,11 +21,20 @@
       }
       nav {
         display: grid;
-        justify-items: start;
-        gap: 0.75rem;
+        gap: 1.25rem;
+        margin-block: 1.5rem;
+      }
+      nav h2 {
+        margin: 0;
+        font-size: 1.125rem;
+      }
+      nav p {
+        margin: 0.5rem 0 0;
       }
       a {
-        display: inline-flex;
+        display: grid;
+        grid-template-columns: 48px minmax(0, 1fr);
+        width: fit-content;
         align-items: center;
         gap: 0.75rem;
         color: #146451;
@@ -38,16 +47,39 @@
   <body>
     <main>
       <h1>RWD Drift Lab</h1>
+      <p>RC二駆ドリフト向けの3Dシミュレーター</p>
       <nav aria-label="シミュレーター">
-        <a href="./AArmSim/AArmSim.html">
-          <img src="./AArmSim/icon-192.png" width="48" height="48" alt="" />
-          AArmSim: リアAアームシミュレーター
-        </a>
-        <a href="./AckermanSim/AckermanSim.html">
-          <img src="./AckermanSim/icon-192.png" width="48" height="48" alt="" />
-          AckermanSim: フロントスライドラックシミュレーター
-        </a>
+        <section>
+          <h2>
+            <a href="./AArmSim/AArmSim.html">
+              <img src="./AArmSim/icon-192.png" width="48" height="48" alt="" />
+              <span>AArmSim</span>
+            </a>
+          </h2>
+          <p>
+            リアAアーム式サスペンションの動きを確認できます。サスペンションの上下動に伴うキャンバー・トー・キャスターの変化や、ロールセンターを表示します。
+          </p>
+        </section>
+        <section>
+          <h2>
+            <a href="./AckermanSim/AckermanSim.html">
+              <img
+                src="./AckermanSim/icon-192.png"
+                width="48"
+                height="48"
+                alt=""
+              />
+              <span>AckermanSim</span>
+            </a>
+          </h2>
+          <p>
+            フロントのスライドラック式ステアリングとサスペンションの動きを確認できます。操舵量や車高を変えながら左右のタイヤの角度を比較でき、タイロッドやサスマウントの寸法も調整できます。
+          </p>
+        </section>
       </nav>
+      <p>
+        どちらも作者自身のセットアップを基準にした簡易モデルです。RCカーの寸法やタイヤの接地状態を厳密に再現するものではありません。
+      </p>
     </main>
   </body>
 </html>
