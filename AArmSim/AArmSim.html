@@ -493,7 +493,7 @@
             <label for="leftToeRodLength">
               左長さ
               <output id="leftToeRodLengthValue" for="leftToeRodLength"
-                >38.000 mm</output
+                >38.600 mm</output
               >
             </label>
             <input
@@ -502,14 +502,14 @@
               min="36"
               max="40"
               step="any"
-              value="38"
+              value="38.6"
             />
           </div>
           <div>
             <label for="rightToeRodLength">
               右長さ
               <output id="rightToeRodLengthValue" for="rightToeRodLength"
-                >38.000 mm</output
+                >38.600 mm</output
               >
             </label>
             <input
@@ -518,7 +518,7 @@
               min="36"
               max="40"
               step="any"
-              value="38"
+              value="38.6"
             />
           </div>
         </div>
@@ -974,7 +974,8 @@
         const tireCenterOffset = tireHalfWidth + 3;
         const tireEdgeRadius =
           tireRadius - tireHalfWidth * Math.tan(MathUtils.degToRad(2));
-        const toePivotBaseHeight = 10;
+        const toePivotCalibrationHeight = 10;
+        const toePivotBaseHeight = toePivotCalibrationHeight - 5;
         const grid = new THREE.GridHelper(280, 14, 0xd5dfd9, 0xd5dfd9);
         scene.add(grid);
 
@@ -1066,17 +1067,18 @@
             toeEndBaseLength,
           );
           const toeLength = Number(toeRodLength.defaultValue);
-          const pivotHeight = lowerPivot.y + toePivotBaseHeight;
+          const toePivotCalibrationLength = 38;
+          const calibrationHeight = lowerPivot.y + toePivotCalibrationHeight;
           const pivotDepth = basePivots[0].z;
           const depthOffset = pivotDepth - neutralToeEnd.z;
           const lateralOffset = Math.sqrt(
-            toeLength ** 2 -
-              (pivotHeight - neutralToeEnd.y) ** 2 -
+            toePivotCalibrationLength ** 2 -
+              (calibrationHeight - neutralToeEnd.y) ** 2 -
               depthOffset ** 2,
           );
           const toePivot = vector(
             neutralToeEnd.x - sign * lateralOffset,
-            pivotHeight,
+            lowerPivot.y + toePivotBaseHeight,
             pivotDepth,
           );
           const input = document.getElementById(id);
