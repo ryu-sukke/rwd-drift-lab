@@ -443,8 +443,8 @@
         <input
           id="rackTravel"
           type="range"
-          min="-15"
-          max="15"
+          min="-17"
+          max="17"
           step="0.1"
           value="0"
         />
@@ -526,32 +526,32 @@
             <label for="leftToeRodLength">
               左長さ
               <output id="leftToeRodLengthValue" for="leftToeRodLength"
-                >36.700 mm</output
+                >39.900 mm</output
               >
             </label>
             <input
               id="leftToeRodLength"
               type="range"
-              min="34"
-              max="40"
+              min="39"
+              max="42"
               step="any"
-              value="36.7"
+              value="39.9"
             />
           </div>
           <div>
             <label for="rightToeRodLength">
               右長さ
               <output id="rightToeRodLengthValue" for="rightToeRodLength"
-                >36.700 mm</output
+                >39.900 mm</output
               >
             </label>
             <input
               id="rightToeRodLength"
               type="range"
-              min="34"
-              max="40"
+              min="39"
+              max="42"
               step="any"
-              value="36.7"
+              value="39.9"
             />
           </div>
         </div>
@@ -743,32 +743,32 @@
             <label for="leftUpperArmLength">
               左アッパー長さ
               <output id="leftUpperArmLengthValue" for="leftUpperArmLength"
-                >50.0 mm</output
+                >52.0 mm</output
               >
             </label>
             <input
               id="leftUpperArmLength"
               type="range"
-              min="48"
-              max="52"
+              min="50"
+              max="55"
               step="0.1"
-              value="50"
+              value="52"
             />
           </div>
           <div>
             <label for="rightUpperArmLength">
               右アッパー長さ
               <output id="rightUpperArmLengthValue" for="rightUpperArmLength"
-                >50.0 mm</output
+                >52.0 mm</output
               >
             </label>
             <input
               id="rightUpperArmLength"
               type="range"
-              min="48"
-              max="52"
+              min="50"
+              max="55"
               step="0.1"
-              value="50"
+              value="52"
             />
           </div>
         </div>
@@ -777,7 +777,7 @@
             <label for="leftUpperArmDepth">
               左アッパー前後
               <output id="leftUpperArmDepthValue" for="leftUpperArmDepth"
-                >0.0 mm</output
+                >1.0 mm</output
               >
             </label>
             <input
@@ -786,14 +786,14 @@
               min="-5"
               max="5"
               step="0.1"
-              value="0"
+              value="1"
             />
           </div>
           <div>
             <label for="rightUpperArmDepth">
               右アッパー前後
               <output id="rightUpperArmDepthValue" for="rightUpperArmDepth"
-                >0.0 mm</output
+                >1.0 mm</output
               >
             </label>
             <input
@@ -802,7 +802,7 @@
               min="-5"
               max="5"
               step="0.1"
-              value="0"
+              value="1"
             />
           </div>
         </div>
@@ -811,32 +811,32 @@
             <label for="leftLowerArmLength">
               左ロア長さ
               <output id="leftLowerArmLengthValue" for="leftLowerArmLength"
-                >52.0 mm</output
+                >55.0 mm</output
               >
             </label>
             <input
               id="leftLowerArmLength"
               type="range"
-              min="50"
-              max="54"
+              min="53"
+              max="58"
               step="0.1"
-              value="52"
+              value="55"
             />
           </div>
           <div>
             <label for="rightLowerArmLength">
               右ロア長さ
               <output id="rightLowerArmLengthValue" for="rightLowerArmLength"
-                >52.0 mm</output
+                >55.0 mm</output
               >
             </label>
             <input
               id="rightLowerArmLength"
               type="range"
-              min="50"
-              max="54"
+              min="53"
+              max="58"
               step="0.1"
-              value="52"
+              value="55"
             />
           </div>
         </div>
@@ -1138,7 +1138,7 @@
         const rear = vector(0, 0, 1);
         const toeEndBaseDepth = 18;
         const upperJointBaseHeight = 14;
-        const upperJointRearOffset = 8;
+        const upperJointRearOffset = 3;
         const knuckleBasis = new THREE.Matrix4();
         const frameCenter = vector(0, -2, -10);
         const lineGeometry = new THREE.CylinderGeometry(1, 1, 1, 10);
@@ -1231,7 +1231,7 @@
           rackBallProjection * rackForkScale + rackForkRearOffset;
         const rackForkDepth = 16 * rackForkScale;
         const rackForkWebExtension = rackForkRearOffset - 2;
-        const rackRearOffset = 6;
+        const rackBaseDepth = 5;
         const rackBearingRadius = 3.5;
         const rackBulgeDirection = -1;
         const rackChordDepth =
@@ -2062,8 +2062,11 @@
             if (point) maxAbsToe = Math.max(maxAbsToe, Math.abs(point.toe));
           });
           const toeLimit = Math.ceil(maxAbsToe * 2) / 2;
+          const steeringMin = Number(rackTravel.min);
+          const steeringMax = Number(rackTravel.max);
+          const steeringSpan = steeringMax - steeringMin;
           const xPosition = (steering) =>
-            plot.left + ((steering + 15) / 30) * plotWidth;
+            plot.left + ((steering - steeringMin) / steeringSpan) * plotWidth;
           const yPosition = (toe) =>
             plot.top + ((toeLimit - toe) / (toeLimit * 2)) * plotHeight;
 
@@ -2082,7 +2085,7 @@
           });
           context.textAlign = "center";
           context.textBaseline = "top";
-          [-15, 0, 15].forEach((steering) => {
+          [steeringMin, 0, steeringMax].forEach((steering) => {
             const x = xPosition(steering);
             context.strokeStyle = "#e2e8e5";
             context.beginPath();
@@ -2220,17 +2223,12 @@
           rackTravelValue.value = `${travel.toFixed(1)} mm`;
           const rackYaw = Math.asin(travel / rackChordDepth);
           const lowerArmBaseDepth = -4;
-          const [leftDepth, rightDepth] = sides.map((side) => {
+          sides.forEach((side) => {
             const offset = Number(side.lowerArmDepth.value);
             side.lowerArmDepthOffset = lowerArmBaseDepth + offset;
             side.lowerArmDepthValue.value = `${offset.toFixed(1)} mm`;
-            return side.lowerArmDepthOffset;
           });
-          rackGuide.position.set(
-            0,
-            rackBaseHeight,
-            (leftDepth + rightDepth) / 2 + rackRearOffset,
-          );
+          rackGuide.position.set(0, rackBaseHeight, rackBaseDepth);
           rackGuide.quaternion.copy(rackPitch);
           rack.quaternion.setFromAxisAngle(up, rackYaw);
           rack.position
