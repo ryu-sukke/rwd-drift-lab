@@ -946,6 +946,7 @@
         }
 
         const bodyMountDrop = 3.26;
+        const armMountLift = 0;
         const lowerArmMount = {
           halfWidth: 44.4 / 2,
           height: -12,
@@ -1094,7 +1095,9 @@
           return {
             ...geometry,
             lowerPivot: lowerPivot.setY(lowerPivot.y - bodyMountDrop),
-            upperPivot: upperPivot.setY(upperPivot.y - bodyMountDrop).setZ(4),
+            upperPivot: upperPivot
+              .setY(upperPivot.y - bodyMountDrop + armMountLift)
+              .setZ(4),
             mountHeightControls,
             knuckleHeights,
             toePivot,
@@ -1760,7 +1763,7 @@
                 ({ input, readout }) => {
                   const offset = Number(input.value);
                   readout.value = `${offset.toFixed(1)} mm`;
-                  return offset - bodyMountDrop;
+                  return offset - bodyMountDrop + armMountLift;
                 },
               );
               return lowerArmPivots(sign, widths, heightOffsets);
