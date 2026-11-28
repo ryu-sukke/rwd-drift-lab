@@ -523,80 +523,10 @@
         </div>
         <div class="adjustment-control">
           <div>
-            <label for="leftToeEndHeight">
-              左終点高さ
-              <output id="leftToeEndHeightValue" for="leftToeEndHeight"
-                >0.0 mm</output
-              >
-            </label>
-            <input
-              id="leftToeEndHeight"
-              type="range"
-              min="-5"
-              max="5"
-              step="0.1"
-              value="0"
-            />
-          </div>
-          <div>
-            <label for="rightToeEndHeight">
-              右終点高さ
-              <output id="rightToeEndHeightValue" for="rightToeEndHeight"
-                >0.0 mm</output
-              >
-            </label>
-            <input
-              id="rightToeEndHeight"
-              type="range"
-              min="-5"
-              max="5"
-              step="0.1"
-              value="0"
-            />
-          </div>
-        </div>
-        <div class="adjustment-control">
-          <div>
-            <label for="leftToeEndProjection">
-              左終点突き出し
-              <output id="leftToeEndProjectionValue" for="leftToeEndProjection"
-                >0.0 mm</output
-              >
-            </label>
-            <input
-              id="leftToeEndProjection"
-              type="range"
-              min="-5"
-              max="5"
-              step="0.1"
-              value="0"
-            />
-          </div>
-          <div>
-            <label for="rightToeEndProjection">
-              右終点突き出し
-              <output
-                id="rightToeEndProjectionValue"
-                for="rightToeEndProjection"
-                >0.0 mm</output
-              >
-            </label>
-            <input
-              id="rightToeEndProjection"
-              type="range"
-              min="-5"
-              max="5"
-              step="0.1"
-              value="0"
-            />
-          </div>
-        </div>
-        <div class="adjustment-control">
-          <div>
             <label for="leftToeRodLength">
               左長さ
               <output id="leftToeRodLengthValue" for="leftToeRodLength"
-                >36.400 mm</output
+                >36.700 mm</output
               >
             </label>
             <input
@@ -605,14 +535,14 @@
               min="34"
               max="40"
               step="any"
-              value="36.4"
+              value="36.7"
             />
           </div>
           <div>
             <label for="rightToeRodLength">
               右長さ
               <output id="rightToeRodLengthValue" for="rightToeRodLength"
-                >36.400 mm</output
+                >36.700 mm</output
               >
             </label>
             <input
@@ -621,7 +551,7 @@
               min="34"
               max="40"
               step="any"
-              value="36.4"
+              value="36.7"
             />
           </div>
         </div>
@@ -954,7 +884,7 @@
               <output
                 id="leftKnuckleUpperHeightValue"
                 for="leftKnuckleUpperHeight"
-                >0.0 mm</output
+                >2.0 mm</output
               >
             </label>
             <input
@@ -963,7 +893,7 @@
               min="-5"
               max="5"
               step="0.1"
-              value="0"
+              value="2"
             />
           </div>
           <div>
@@ -972,7 +902,7 @@
               <output
                 id="rightKnuckleUpperHeightValue"
                 for="rightKnuckleUpperHeight"
-                >0.0 mm</output
+                >2.0 mm</output
               >
             </label>
             <input
@@ -981,7 +911,7 @@
               min="-5"
               max="5"
               step="0.1"
-              value="0"
+              value="2"
             />
           </div>
         </div>
@@ -1020,6 +950,110 @@
               max="5"
               step="0.1"
               value="0"
+            />
+          </div>
+        </div>
+        <div class="adjustment-control">
+          <div>
+            <label for="leftToeEndHeight">
+              左トー高さ
+              <output id="leftToeEndHeightValue" for="leftToeEndHeight"
+                >0.0 mm</output
+              >
+            </label>
+            <input
+              id="leftToeEndHeight"
+              type="range"
+              min="-5"
+              max="5"
+              step="0.1"
+              value="0"
+            />
+          </div>
+          <div>
+            <label for="rightToeEndHeight">
+              右トー高さ
+              <output id="rightToeEndHeightValue" for="rightToeEndHeight"
+                >0.0 mm</output
+              >
+            </label>
+            <input
+              id="rightToeEndHeight"
+              type="range"
+              min="-5"
+              max="5"
+              step="0.1"
+              value="0"
+            />
+          </div>
+        </div>
+        <div class="adjustment-control">
+          <div>
+            <label for="leftToeEndProjection">
+              左トー突き出し
+              <output id="leftToeEndProjectionValue" for="leftToeEndProjection"
+                >0.0 mm</output
+              >
+            </label>
+            <input
+              id="leftToeEndProjection"
+              type="range"
+              min="-5"
+              max="5"
+              step="0.1"
+              value="0"
+            />
+          </div>
+          <div>
+            <label for="rightToeEndProjection">
+              右トー突き出し
+              <output
+                id="rightToeEndProjectionValue"
+                for="rightToeEndProjection"
+                >0.0 mm</output
+              >
+            </label>
+            <input
+              id="rightToeEndProjection"
+              type="range"
+              min="-5"
+              max="5"
+              step="0.1"
+              value="0"
+            />
+          </div>
+        </div>
+        <div class="adjustment-control">
+          <div>
+            <label for="leftToeEndOffset">
+              左トーオフセット
+              <output id="leftToeEndOffsetValue" for="leftToeEndOffset"
+                >0.2 mm</output
+              >
+            </label>
+            <input
+              id="leftToeEndOffset"
+              type="range"
+              min="-5"
+              max="5"
+              step="0.1"
+              value="0.2"
+            />
+          </div>
+          <div>
+            <label for="rightToeEndOffset">
+              右トーオフセット
+              <output id="rightToeEndOffsetValue" for="rightToeEndOffset"
+                >0.2 mm</output
+              >
+            </label>
+            <input
+              id="rightToeEndOffset"
+              type="range"
+              min="-5"
+              max="5"
+              step="0.1"
+              value="0.2"
             />
           </div>
         </div>
@@ -1103,6 +1137,7 @@
         const up = vector(0, 1, 0);
         const rear = vector(0, 0, 1);
         const toeEndBaseDepth = 18;
+        const upperJointBaseHeight = 14;
         const upperJointRearOffset = 8;
         const knuckleBasis = new THREE.Matrix4();
         const frameCenter = vector(0, -2, -10);
@@ -1156,7 +1191,7 @@
 
         const lowerArmMount = {
           halfWidth: 44.4 / 2,
-          height: -12,
+          height: -13.983,
           front: -15,
           rear: 21,
         };
@@ -1181,7 +1216,7 @@
         const tireCenterOffset = tireHalfWidth + 3;
         const tireEdgeRadius =
           tireRadius - tireHalfWidth * Math.tan(MathUtils.degToRad(2));
-        const toePivotBaseHeight = 16;
+        const rackBaseHeight = 4;
         const rackTravel = document.getElementById("rackTravel");
         const rackTravelValue = document.getElementById("rackTravelValue");
         const rackHalfSpan = 75 / 2;
@@ -1360,6 +1395,12 @@
           const toeEndProjectionValue = document.getElementById(
             id + "ToeEndProjectionValue",
           );
+          const toeEndOffsetInput = document.getElementById(
+            id + "ToeEndOffset",
+          );
+          const toeEndOffsetValue = document.getElementById(
+            id + "ToeEndOffsetValue",
+          );
           const lowerPivot = vector(
             sign * lowerArmMount.halfWidth,
             lowerArmMount.height,
@@ -1447,6 +1488,8 @@
             toeEndHeightValue,
             toeEndProjectionInput,
             toeEndProjectionValue,
+            toeEndOffsetInput,
+            toeEndOffsetValue,
             toeMount,
             toeEndSpacer,
             input,
@@ -1488,10 +1531,11 @@
           const lateral = vector(hinge.z, 0, -hinge.x).normalize();
           const vertical = hinge.clone().cross(lateral);
           const jointSpacing =
-            uprightLength + upperKnuckleHeight + lowerKnuckleHeight;
-          const shiftedUpperPivot = upperPivot
-            .clone()
-            .addScaledVector(rear, -upperJointRearOffset);
+            upperJointBaseHeight +
+            upperKnuckleHeight +
+            uprightLength / 2 +
+            lowerKnuckleHeight;
+          const ballSpacing = Math.hypot(jointSpacing, upperJointRearOffset);
           function jointGeometryAt(stroke) {
             const rise = (lowerRest.y + stroke - hingeCenter.y) / vertical.y;
             const low = hingeCenter
@@ -1501,8 +1545,8 @@
                 sign * Math.sqrt(lowerLength ** 2 - rise ** 2),
               )
               .addScaledVector(vertical, rise);
-            const diagonal = low.clone().sub(shiftedUpperPivot);
-            const uprightRadiusSquared = jointSpacing ** 2 - diagonal.z ** 2;
+            const diagonal = low.clone().sub(upperPivot);
+            const uprightRadiusSquared = ballSpacing ** 2 - diagonal.z ** 2;
             const distance = diagonal.setZ(0).length();
             const along =
               (upperLength ** 2 - uprightRadiusSquared + distance ** 2) /
@@ -1537,15 +1581,25 @@
             .clone()
             .addScaledVector(diagonal, -up.dot(diagonal))
             .normalize();
-          const high = shiftedUpperPivot
+          const upperJoint = upperPivot
             .clone()
             .addScaledVector(diagonal, along)
             .addScaledVector(perpendicular, height);
-          const axis = high.clone().sub(low).normalize();
-          const rearDirection = rear
+          const ballAxis = upperJoint.clone().sub(low).normalize();
+          const rearReference = rear
             .clone()
-            .addScaledVector(axis, -rear.dot(axis))
+            .addScaledVector(ballAxis, -rear.dot(ballAxis))
             .normalize();
+          const axis = ballAxis
+            .clone()
+            .multiplyScalar(jointSpacing / ballSpacing)
+            .addScaledVector(
+              rearReference,
+              -upperJointRearOffset / ballSpacing,
+            );
+          const rearDirection = rearReference
+            .multiplyScalar(jointSpacing / ballSpacing)
+            .addScaledVector(ballAxis, upperJointRearOffset / ballSpacing);
           const outside = axis
             .clone()
             .cross(rearDirection)
@@ -1555,10 +1609,7 @@
             .addScaledVector(axis, uprightLength / 2 + lowerKnuckleHeight);
           return {
             low,
-            high,
-            upperJoint: high
-              .clone()
-              .addScaledVector(rear, upperJointRearOffset),
+            upperJoint,
             hub,
             axis,
             outside,
@@ -1572,7 +1623,6 @@
           const upright = solveUpright(side, travel, pivots);
           const {
             low,
-            high,
             upperJoint,
             hub,
             axis,
@@ -1598,7 +1648,8 @@
             .clone()
             .cross(radial)
             .multiplyScalar(sign);
-          const toPivot = toePivot.clone().sub(orbitCenter);
+          const toeEndOffset = vector(sign * side.toeEndOffset, 0, 0);
+          const toPivot = toePivot.clone().sub(orbitCenter).sub(toeEndOffset);
           const radialComponent = toPivot.dot(radial);
           const tangentComponent = toPivot.dot(tangent);
           const target =
@@ -1610,16 +1661,18 @@
             sign * (phase + Math.acos(MathUtils.clamp(ratio, -1, 1)));
           const rotatePoint = (point) =>
             point.clone().sub(low).applyAxisAngle(steeringAxis, angle).add(low);
-          const upperJointOffset = upperJoint.clone().sub(high);
+          const toeSpacerEnd = rotatePoint(restToeEnd);
           return {
             low,
-            high,
             upperJoint,
-            upperJointOffset,
-            mountHub: hub,
+            upperJointOffset: rearDirection
+              .applyAxisAngle(steeringAxis, angle)
+              .multiplyScalar(upperJointRearOffset),
+            uprightAxis: axis.applyAxisAngle(steeringAxis, angle),
             hub: rotatePoint(hub),
             toeMountTip: rotatePoint(restToeMountTip),
-            toeEnd: rotatePoint(restToeEnd),
+            toeSpacerEnd,
+            toeEnd: toeSpacerEnd.clone().add(toeEndOffset),
             axle: outside.applyAxisAngle(steeringAxis, angle),
             reachable,
             strokeLimited,
@@ -1651,12 +1704,12 @@
         function drawSide(side, rideHeightOffset, pivots, mounts) {
           const {
             low,
-            high,
             upperJoint,
             upperJointOffset,
-            mountHub,
+            uprightAxis,
             hub,
             toeMountTip,
+            toeSpacerEnd,
             toeEnd,
             axle,
             reachable,
@@ -1676,7 +1729,7 @@
           segment(side.toeMount, vector(0, 0, 0), mountEnd, 2.8);
           side.toeEndSpacer.visible = side.toeEndHeight !== 0;
           if (side.toeEndSpacer.visible)
-            segment(side.toeEndSpacer, toeMountTip, toeEnd, 1.7);
+            segment(side.toeEndSpacer, toeMountTip, toeSpacerEnd, 1.7);
           const [frontLow, rearLow] = mounts;
           const frontHigh = side.upperPivot.clone().setZ(side.upperPivot.z - 9);
           const rearHigh = side.upperPivot.clone().setZ(side.upperPivot.z + 11);
@@ -1684,11 +1737,10 @@
           drawArm(side.upper, frontHigh, rearHigh, upperJoint);
           segment(side.toe, side.toePivot, toeEnd, 1.5);
           side.toe.visible = reachable;
-          const uprightAxis = high.clone().sub(low).normalize();
           const mountBaseDistance = side.uprightLength * 0.27;
           segment(
             side.upperMount,
-            mountHub
+            hub
               .clone()
               .addScaledVector(uprightAxis, mountBaseDistance)
               .add(upperJointOffset),
@@ -1698,7 +1750,7 @@
           segment(
             side.lowerMount,
             low,
-            mountHub.clone().addScaledVector(uprightAxis, -mountBaseDistance),
+            hub.clone().addScaledVector(uprightAxis, -mountBaseDistance),
             3.3,
           );
           segment(side.stub, hub, hub.clone().addScaledVector(axle, 7.5), 1.7);
@@ -1725,7 +1777,7 @@
           );
           return {
             low,
-            high,
+            upperJoint,
             hub,
             axle,
             toe: reachable ? MathUtils.radToDeg(-toeAngle) : null,
@@ -1869,12 +1921,12 @@
             if (!showRollCenter.checked) return 0;
             let extent = 0;
             const swingLines = poses.map(
-              ({ low, high, contact, pivots, upperPivot }, index) => {
+              ({ low, upperJoint, contact, pivots, upperPivot }, index) => {
                 const lower = new THREE.Vector2(low.x, low.y);
-                const upper = new THREE.Vector2(high.x, high.y);
+                const upper = new THREE.Vector2(upperJoint.x, upperJoint.y);
                 const lowerDirection = projectedArmDirection(low, ...pivots);
                 const upperDirection = projectedArmDirection(
-                  high,
+                  upperJoint,
                   upperPivot,
                   upperPivot.clone().add(rear),
                 );
@@ -2176,7 +2228,7 @@
           });
           rackGuide.position.set(
             0,
-            lowerArmMount.height + toePivotBaseHeight,
+            rackBaseHeight,
             (leftDepth + rightDepth) / 2 + rackRearOffset,
           );
           rackGuide.quaternion.copy(rackPitch);
@@ -2228,6 +2280,8 @@
             const toeEndProjection = Number(side.toeEndProjectionInput.value);
             side.toeEndProjectionValue.value = `${toeEndProjection.toFixed(1)} mm`;
             side.toeEndDepth = toeEndBaseDepth + toeEndProjection;
+            side.toeEndOffset = Number(side.toeEndOffsetInput.value);
+            side.toeEndOffsetValue.value = `${side.toeEndOffset.toFixed(1)} mm`;
             const [upperWidth, upperHeightOffset] = side.upperMountControls.map(
               ({ input, readout }) => {
                 const value = Number(input.value);
@@ -2532,6 +2586,7 @@
           side.toeProjection.addEventListener("input", render);
           side.toeEndHeightInput.addEventListener("input", render);
           side.toeEndProjectionInput.addEventListener("input", render);
+          side.toeEndOffsetInput.addEventListener("input", render);
           side.input.addEventListener("input", () => {
             setAnimating(false);
             lastStrokeIndex = index;
